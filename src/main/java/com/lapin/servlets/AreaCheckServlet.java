@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
@@ -43,7 +45,20 @@ public class AreaCheckServlet extends HttpServlet {
         HitResult hitResult = new HitResult();
         hitResult.setCoordinates(coordinates);
         hitResult.setCurrentTime(currentTime);
-        hitResult.setExecutionTime((double) (System.nanoTime() - startTime) / 1000000);
+        BigDecimal executionTime = BigDecimal.valueOf((double) (System.nanoTime() - startTime) / 1000000);
+        BigDecimal zeroOne = new BigDecimal("0.1");
+        BigDecimal zeroTwo = new BigDecimal("0.2");
+        for(int i = 1; i < 10; i++){
+            if(executionTime.setScale(i, RoundingMode.HALF_UP).compareTo(BigDecimal.ZERO) != 0 &&
+                    executionTime.setScale(i, RoundingMode.HALF_UP).compareTo(zeroOne) != 0 &&
+                        executionTime.setScale(i, RoundingMode.HALF_UP).compareTo(zeroTwo) != 0)
+            {
+                executionTime = executionTime.setScale(i, RoundingMode.HALF_UP);
+                break;
+            }
+        }
+
+        hitResult.setExecutionTime(executionTime.doubleValue());
         hitResult.setHit(isHit(coordinates));
 
         ResultCollectionManager hitCollection = (ResultCollectionManager) request.getSession().getAttribute("hitCollection");

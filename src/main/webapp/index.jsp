@@ -49,11 +49,6 @@
     </div>
     <section class="table_section">
 
-        <!-- Кнопка очистки таблицы -->
-        <div id="cleaner">
-            <button class="button" id="clean">Clean Table</button>
-        </div>
-
         <!-- Таблица регистрирующая попадания -->
         <div>
             <jsp:include page="table.jsp" />

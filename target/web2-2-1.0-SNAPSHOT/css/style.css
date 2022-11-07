@@ -89,12 +89,6 @@ main{
 .validate_button#reset:hover, .validate_button#reset:active{
     background: #ff0404;
 }
-.button#clean{
-    width: 200px;
-}
-.button#clean:hover, .button#clean:active{
-    background: #0A8059;
-}
 #form{
     flex: 50%;
 }

@@ -7,7 +7,7 @@ let rVal = form.querySelector('.r');
 let table = [];
 
 const xLim = {min:-5,max: 3};
-const yLim = [-5,3];
+const yLim = {min:-5,max:3};
 const rLim = {min: 1,max: 4};
 
 function isNumeric(n) {
@@ -163,6 +163,14 @@ canvas.addEventListener('click', (event) => {
         console.log(x, y);
         let scaleX = (x - w / 2) * r / (1 / 3 * w);
         let scaleY = -(y - h / 2) * r / (1 / 3 * h);
+        if(scaleX>=xLim.max || scaleX<=xLim.min){
+            alert("Error: X value:" + scaleX + " – is incorrect!");
+            return;
+        }
+        if(scaleY>=yLim.max || scaleY<=yLim.min){
+            alert("Error: Y value:" + scaleY + " – is incorrect!");
+            return;
+        }
         drawPoint(scaleX,scaleY, r ,true)
         console.log("scaleX:" + scaleX);
         console.log("scaleY:" + scaleY);
